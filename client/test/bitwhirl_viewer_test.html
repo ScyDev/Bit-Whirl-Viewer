@@ -1,0 +1,389 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Bit Whirl | Interactive Virtual Environment, Browser Game Engine, Flash Game Framework, Game Platform</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="canonical" href="http://www.bitwhirl.com/" />
+<meta name="keywords" content="interactive virtual environment, browser game engine, flash game framework, metaverse, avatars, game platform, metaplace, game engine, multiplayer, game framework, virtual world, massive multiplayer online, second life, games, mmorpg, worlds, chat, imvu" />
+<meta name="copyright" content="Copyright by ScyDev.ch" />
+<meta name="description" content="The metaverse in your browser. Interactive virtual environment. Multiplayer game platform.
+Browser game engine. Multiplayer flash game framework. 3D chat with Avatars. A new Metaplace and a replacement for Metaplace. Second Life in your browser." />
+<meta name="abstract" content="Virtual worlds platform, for games and all other multiuser realtime environments." />
+
+<meta name="dc.contributor" content="ScyDev.ch" />
+<meta name="dc.creator" content="ScyDev.ch" />
+<meta name="dc.description" content="The metaverse in your browser. Interactive virtual environment. Multiplayer game platform.
+Browser game engine. Multiplayer flash game framework. 3D chat with Avatars. A new Metaplace and a replacement for Metaplace. Second Life in your browser." />
+<meta name="dc.publisher" content="ScyDev.ch" />
+<meta name="revisit-after" content="1 day" />
+
+<link rel="shortcut icon" href="/themes/acquia_slate/favicon.ico" type="image/x-icon" />
+
+<link rel="stylesheet" type="text/css" href="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/button/assets/skins/sam/button.css" />
+<link rel="stylesheet" type="text/css" href="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/container/assets/skins/sam/container.css" />
+<script type="text/javascript" src="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/yuiloader/yuiloader-min.js"></script>
+
+<script type="text/javascript" src="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/event/event-min.js"></script>
+<script type="text/javascript" src="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/connection/connection-min.js"></script>
+<script type="text/javascript" src="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/dom/dom-min.js"></script>
+<script type="text/javascript" src="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/element/element-min.js"></script>
+<script type="text/javascript" src="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/button/button-min.js"></script>
+<script type="text/javascript" src="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/dragdrop/dragdrop-min.js"></script>
+<script type="text/javascript" src="https://www.bitwhirl.com/app/lib/yui_2.8.0r4/yui/build/container/container-min.js"></script>
+
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-18475036-1']);
+      _gaq.push(['_setDomainName', '.bitwhirl.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>  
+</head>
+
+
+
+<body bgcolor="#292929" on_Un_load="javascript:askWhyLeaving();" on_Before_Unload="showOverlay('https://www.bitwhirl.com/app/server/play_input.jsp?cmd=logout');" >
+
+
+
+<style>
+
+.button_container {
+	position: absolute;
+	to_p: 62px;
+	max-width: 1139px;
+	width: 1139px;
+	height: 1px;
+	z-index: 1;
+}
+
+.bw_button {
+	width: 20px;
+	height: 20px;
+	
+	display: block;
+	position: relative;
+	top: 14px;
+	float: left;
+	z-index: 1;
+
+	margin-left: 10px;
+	
+}
+
+.bw_button span {
+	display: none;
+}
+
+.upload_button {
+	background: transparent url(images/icon_upload.png) no-repeat;
+	margin-left: 90px;
+}
+
+.maps_button {
+	background: transparent url(images/icon_maps.png) no-repeat;
+}
+
+.coins_button {
+	background: transparent url(images/icon_coins.png) no-repeat;
+}
+
+.marketplace_button {
+	background: transparent url(images/icon_marketplace.png) no-repeat;
+}
+
+.history_button {
+	background: transparent url(images/icon_history.png) no-repeat;
+	left:228px;
+	top:52px;
+}
+
+.help_button {
+	background: transparent url(images/icon_help.png) no-repeat;
+	float: right;
+	margin-right: 20px;
+}
+
+.reload_button {
+	background: transparent url(images/icon_reload.png) no-repeat;
+	float: right;
+}
+
+.logout_button {
+	background: transparent url(images/icon_logout.png) no-repeat;
+	float: right;
+	margin-right: 21px;
+}
+
+.button_container a:hover,
+.button_container a:active {
+	margin-top: -1px;
+	text-decoration: none;
+}
+
+#overlayContent_mask {
+	background-color: black;
+	
+	filter:alpha(opacity=50);
+	-moz-opacity:0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;	
+}
+
+</style>
+
+
+	
+	<div class="button_container">
+
+	<a class="bw_button upload_button" href="javascript:showOverlay('https://www.bitwhirl.com/app/client/DoUpload_prepare.action');" title="Upload Image/Sound">
+	<div><span>Upload</span></div>
+	</a> 
+
+	<a class="bw_button maps_button" href="javascript:showOverlay('https://www.bitwhirl.com/app/client/map/Map_list.action');" title="Manage your maps">
+	<div><span>Edit Maps</span></div>
+	</a> 
+
+	<a class="bw_button coins_button" href="javascript:showOverlay('https://www.bitwhirl.com/app/currency/CurrencyIn_buy.action');" title="Buy/Sell BitCoins">
+	<div><span>Buy BitCoins</span></div></a> 
+<!--
+	<a href="javascript:showOverlay('https://www.bitwhirl.com/app/currency/CurrencyOut_sell.action');" title="Sell BitCoins">
+	<div class="bw_button coins_button"><span>Sell BitCoins</span></div></a> 
+	 -->
+	<a class="bw_button marketplace_button" href="javascript:showOverlay('https://www.bitwhirl.com/app/commerce/ListSellables.action');" title="Marketplace - Sell your products">
+	<div><span>Marketplace</span></div></a> 
+
+	<a class="bw_button history_button" href="javascript:showOverlay('https://www.bitwhirl.com/app/client/map/Map_listHistory.action');" title="Your History">
+	<div><span>History</span></div></a> 
+
+	<a class="bw_button logout_button" href="javascript:showOverlay('https://www.bitwhirl.com/app/server/play_input.jsp?cmd=logout');" title="Logout">
+	<div><span>Logout</span></div></a> 
+
+	<a class="bw_button reload_button" href="javascript: window.location.href=document.URL;" title="Reconnect">
+	<div><span>Reload</span></div></a>
+
+	<a class="bw_button help_button" href="javascript:showOverlay('https://www.bitwhirl.com/app/client/help.jsp');" title="Help">
+	<div><span>Reload</span></div></a>
+
+	</div>
+	
+			<!-- 
+			<fb:login-button>Install Bit Whirl App</fb:login-button>
+			 -->
+			<div id="fb-root"></div>
+		    <script src="https://connect.facebook.net/en_US/all.js"></script>
+		    <script>
+		      FB.init({appId: '128723643806756', xfbml: true, cookies:true});
+		      FB.Event.subscribe('auth.login', function(response) {
+		        // Reload the application in the logged-in state
+		        //TODO: re-enable facebook
+		        //window.top.location = 'http://apps.facebook.com/bitwhirl/';
+		      });
+		    </script>
+			
+	
+	<div style="max-width: 1139px; z-index: 1000;">
+		
+		<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="https://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="980" height="700" id="BitWhirlClient" align="middle">
+		<param name="allowScriptAccess" value="sameDomain" />
+		<param name="movie" value='bitwhirl_client.swf?username=null&amp;passwd=null&amp;loginTokenForExistingPlayer=null&amp;destination=null&amp;guest=null&amp;host=www.bitwhirl.com' />
+		<param name="quality" value="high" />
+		<param name="bgcolor" value="#292929" />
+		<param name="allowFullScreen" value="true" />
+		<param name="wmode" value="opaque" />
+		
+		<embed src="bitwhirl_client.swf" flashvars='username=null&amp;passwd=null&amp;loginTokenForExistingPlayer=null&amp;destination=null&amp;guest=null&amp;host=www.bitwhirl.com' quality="high" bgcolor="#292929" width="980" height="700" name="BitWhirlClient" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="https://www.macromedia.com/go/getflashplayer" allowfullscreen="true" wmode="opaque" />
+		
+		</object>
+
+	</div>
+
+
+
+<script type="text/javascript">
+	//YAHOO.namespace("example.container");
+	
+YAHOO.util.Event.onDOMReady(function () {
+		// Define various event handlers for Dialog
+		var handleSubmit = function() {
+			this.submit();
+		};
+		var handleCancel = function() {
+			this.cancel();
+		};
+			
+	    // Instantiate the Dialog
+		YAHOO.dialog1 = new YAHOO.widget.Dialog("overlayContent", 
+				{ 
+					width : "939px",
+					height: "234px",
+					x: 100,
+					y: 50,
+					modal: true,
+				  fixedcenter : false,
+				  visible : true, 
+				  constraintoviewport : true,
+				  //buttons : [ { text:"Submit", handler:handleSubmit, isDefault:true },  { text:"Cancel", handler:handleCancel } ]
+				  buttons : [  ]
+				 } );
+				 
+		//document.getElementById("overlayIframe").style.visibility = "visible";
+	
+});
+
+// delayed show, to allow content to load
+function nowShow(content)
+{
+	
+	YAHOO.dialog1.render();
+	
+	//YAHOO.util.Event.addListener("hide", "click", YAHOO.dialog1.hide, YAHOO.dialog1, true);
+	//YAHOO.util.Event.addListener("show", "click", YAHOO.dialog1.show, YAHOO.dialog1, true);
+	
+	YAHOO.dialog1.cfg.setProperty("visible", true);
+	//document.getElementById("overlayIframe").src = content;
+}
+
+function showOverlay(content) 
+{
+	
+	//YAHOO.util.Dom.removeClass("dialog1", "yui-pe-content");
+
+	//document.getElementById("overlayIframe").innerHTML = "";
+	
+	document.getElementById("yui-skin-sam-div").style.display = "block";
+	document.getElementById("overlayIframe").src = content;
+	//document.getElementById("overlayIframe").src = "";
+	
+	window.setTimeout("nowShow('"+content+"')", 300);
+}
+
+var resizing = false;
+var saidNoResize = false;
+function checkResize()
+{
+	if (!false && !saidNoResize)
+	{
+		var clientWidth = 1139;
+		var clientHeight = 334;
+		var windowWidth = window.innerWidth;
+		var windowHeight = window.innerHeight;
+		
+		//alert(clientWidth+" "+windowWidth+" - "+clientHeight+" "+windowHeight);
+		
+		if (clientWidth > windowWidth-30 || clientHeight > windowHeight-30)
+		{
+			var check = confirm("The Bit Whirl client does not fit the size of your browser window.\nWould you like to resize?");
+			if (check == true)
+			{
+				resizing = true;
+			
+				var urlParamConnector = "?";
+				if (document.URL.indexOf("?") > 0)
+				{
+					urlParamConnector = "&";
+				}
+				var newUrl = document.URL.replace("&width=", "&oldwidth=");
+				newUrl = newUrl.replace("?width=", "?oldwidth=");
+				newUrl = newUrl.replace("&height=", "&oldheight=");
+				newUrl = newUrl.replace("?height=", "?oldheight=");
+				
+			  window.location.href = newUrl+urlParamConnector+"width="+(windowWidth-30)+"&height="+(windowHeight-30);
+			}
+			else
+			{
+				saidNoResize = true;
+			}
+			
+		}
+	}
+}
+checkResize();
+
+var asked = false;
+//alert(asked);
+
+function askWhyLeaving()
+{
+	return true;
+
+	//alert("askWhyLeaving:"+asked);
+	if (resizing == false && asked == false)
+	{
+		asked = true;
+	
+		var reason = "";
+		if (navigator.appName != "Microsoft Internet Explorer")
+		{
+			reason = prompt('Why are you leaving?\n\nWe are still optimizing this website. Please help us with your answer:','');
+			//alert("alert"+reason+" "+navigator.appName);
+			var returning = confirm("Will your return later?");
+			
+			var Url = "/app/client/send_answer.jsp?answer="+escape(reason)+"&returning="+returning;	
+		    var xmlHttp = new XMLHttpRequest(); 
+		    //xmlHttp.onreadystatechange = ProcessRequest;
+		    xmlHttp.open( "GET", Url, true );
+		    xmlHttp.send( null );
+			
+		}
+	}
+	
+	return true;
+}
+//window.onunload=askWhyLeaving; //on body.onBeforeUnload is enough
+
+var resizeTimeoutId;
+
+function window_resize(e) {
+     window.clearTimeout(resizeTimeoutId);
+     resizeTimeoutId = window.setTimeout('checkResize();', 1000);
+}
+window.onresize = window_resize;
+
+</script>
+
+<style type="text/css">
+.yui-overlay {
+	bac_kground-color: white;
+}
+</style>
+
+
+<div class="yui-skin-sam" id="yui-skin-sam-div" style="display:none;">
+<div id="overlayContent" class="yui-pe-content" style="z-index: 1;">
+<iframe id="overlayIframe" style="width:935px; height:230px; background-color:#292929;" src=""></iframe>
+</div>
+</div>
+
+
+</body>
+</html>
