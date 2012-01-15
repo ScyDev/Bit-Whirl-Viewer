@@ -580,7 +580,7 @@ package
 									MovieClip(root).playFunctions.play_buyObject(inflObjId);
 								}
 							}
-							AlertManager.createAlert(MovieClip(root), "Do you want to buy "+movieClipReference.inflObjName+" for "+movieClipReference.price+" coins?", "Really buy?", ["Yes", "No"], buyConfirmHandler);  
+							AlertManager.createAlert(MovieClip(root), "Do you want to buy "+movieClipReference.inflObjName+" for "+movieClipReference.price+" Bits?", "Really buy?", ["Yes", "No"], buyConfirmHandler);  
 							
 						}
 						else if (event.target.caption == ".:. Remove from HUD")
