@@ -46,7 +46,7 @@ package
 			if (MovieClip(ROOT).guiEvents.edit_mode == 0)
 			{
 				var date = new Date();
-				MovieClip(ROOT).output("play_userClickAt "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 1);
+				MovieClip(ROOT).output("play_userClickAt "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 0);
 				
 				var vars = "cmd=userClickAt&posX="+toX+"&posY="+toY+"&hudX="+hudX+"&hudY="+hudY;
 				sendPlayInputNow(vars);

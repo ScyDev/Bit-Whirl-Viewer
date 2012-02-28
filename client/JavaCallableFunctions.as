@@ -92,7 +92,7 @@ package
 			if (concernedClip != null)
 			{
 				var date = new Date();
-				MovieClip(ROOT).output("Start moving object: "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 1);
+				MovieClip(ROOT).output("Start moving object: "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 0);
 				
 				concernedClip.moveMyself(path, new_speed, projected_duration_millis);
 			}

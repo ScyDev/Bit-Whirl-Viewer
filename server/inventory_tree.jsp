@@ -2,7 +2,7 @@
 <node label = "Personal Folders">
     <node label = "Inbox">
         <node label = "First message" id="1234" type="image" />
-        <node label = "Second message" id="2345" type="image" />
+        <node label = "Second message loo0o0o0o00o00o00o00o00o00o0o0o0ong" id="2345" type="image" />
         <node label = "Third message" id="3456" type="image" />
     </node>
     <node label = "Drafts">

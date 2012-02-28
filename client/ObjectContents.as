@@ -85,6 +85,7 @@ package
 			contentsList.openAllNodes();
 			contentsList.allowMultipleSelection = true;
 			
+			contentsList.addEventListener(ListEvent.ITEM_ROLL_OVER, rollOverItem);
 			contentsList.addEventListener(ListEvent.ITEM_DOUBLE_CLICK, handleContentsDoubleClick);  
 			contentsList.addEventListener(ListEvent.ITEM_CLICK, handleContentsClick);  
 			contentsList.addEventListener(MouseEvent.MOUSE_DOWN, onPressContentsItem);
@@ -94,6 +95,14 @@ package
 			Key.initialize(contentsList);
 		}
 		
+		function rollOverItem (evt:ListEvent) 
+		{
+			// Get the cell renderer for the item we just rolled over
+			var cr:TreeCellRenderer = contentsList.itemToCellRenderer(evt.item) as TreeCellRenderer;
+			cr.width = 600;
+			cr.textField.width = 600;
+			//cr.setSize(600, 30);
+		}
 		
 		// change event handler
 		public function handleContentsClick(eventObject:ListEvent)
