@@ -61,6 +61,7 @@ package
 		public var viewportContentHeight = 1000;
 		public var fixedViewportWidth = 600;
 		public var fixedViewportHeight = 500;
+		public var autoUnloadObjects = true;
 		public var hudContainer:MovieClip = new MovieClip();
 		public var keysDown:Object = new Object();
 		public var watchedKeys:Object = new Object();

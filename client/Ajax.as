@@ -290,7 +290,7 @@ package
 			}
 			else if (cmdName == "update_newMap")
 			{ 
-				MovieClip(ROOT).javaCallableFunctions.update_newMap(cmdArgs[0], cmdArgs[1], cmdArgs[2], cmdArgs[3], cmdArgs[4]);
+				MovieClip(ROOT).javaCallableFunctions.update_newMap(cmdArgs[0], cmdArgs[1], cmdArgs[2], cmdArgs[3], cmdArgs[4], cmdArgs[5]);
 			}
 			else if (cmdName == "update_setObjectsToLoadCount")
 			{ 

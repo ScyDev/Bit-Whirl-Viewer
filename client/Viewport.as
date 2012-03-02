@@ -115,7 +115,7 @@ package
 		{
 			this.objCleanupStepCounter++;
 			//MovieClip(root).output("viewport step counter "+this.objCleanupStepCounter+"/"+this.objCleanupStepInterval, 0);
-			if (this.objCleanupStepCounter >= this.objCleanupStepInterval)
+			if (MovieClip(root).guiEvents.autoUnloadObjects == true && this.objCleanupStepCounter >= this.objCleanupStepInterval)
 			{
 				//MovieClip(root).output("check for far away objects...", 0);
 				this.objCleanupStepCounter = 0;

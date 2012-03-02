@@ -430,7 +430,7 @@ package
 			MovieClip(ROOT).guiEvents.closeLens(MovieClip(ROOT).viewport.horizontalScrollPosition+(MovieClip(ROOT).guiEvents.fixedViewportWidth/2), MovieClip(ROOT).viewport.verticalScrollPosition+(MovieClip(ROOT).guiEvents.fixedViewportHeight/2));
 		}
 		
-		public function update_newMap(mapName, w, h, viewport_w, viewport_h)
+		public function update_newMap(mapName, w, h, viewport_w, viewport_h, autoUnloadObjects)
 		{
 			// these to make sure we are fully back in play mode before making new map
 			// to prevent viewport scaling messup
@@ -466,6 +466,9 @@ package
 			MovieClip(ROOT).borderLayout.adjustLayoutSizes();
 			MovieClip(ROOT).borderLayout.setPlayLayoutMode(true);
 			//resizeViewport(viewport_w, viewport_h);
+			
+			if (autoUnloadObjects == "true") MovieClip(ROOT).guiEvents.autoUnloadObjects = true;
+			else MovieClip(ROOT).guiEvents.autoUnloadObjects = false;
 			
 			MovieClip(ROOT).guiEvents.openLens(MovieClip(ROOT).viewport.horizontalScrollPosition+(MovieClip(ROOT).guiEvents.fixedViewportWidth/2), MovieClip(ROOT).viewport.verticalScrollPosition+(MovieClip(ROOT).guiEvents.fixedViewportHeight/2));
 		}
