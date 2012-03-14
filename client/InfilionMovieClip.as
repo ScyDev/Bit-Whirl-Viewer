@@ -66,6 +66,7 @@ package
 		public var activeResize = 1;
 		public var desiredWidth:int = 0;
 		public var desiredHeight:int = 0;
+		public var sizeZ = 0;
 		
 		public var rotZ = 0;
 		public var activeRot = 0;

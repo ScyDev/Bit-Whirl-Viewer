@@ -107,6 +107,7 @@ package
 			MovieClip(ROOT).obj_props.props_obj_price.addEventListener(ComponentEvent.ENTER, clickApplyProps, false, 0, true);
 			MovieClip(ROOT).obj_props.props_obj_sizeX.addEventListener(ComponentEvent.ENTER, clickApplyProps, false, 0, true);
 			MovieClip(ROOT).obj_props.props_obj_sizeY.addEventListener(ComponentEvent.ENTER, clickApplyProps, false, 0, true);
+			MovieClip(ROOT).obj_props.props_obj_sizeZ.addEventListener(ComponentEvent.ENTER, clickApplyProps, false, 0, true);
 			MovieClip(ROOT).obj_props.obj_contents_button.addEventListener("click", clickObjContents, false, 0, true);
 			MovieClip(ROOT).obj_props.obj_perms_button.addEventListener("click", clickObjPerms, false, 0, true);
 			
@@ -379,7 +380,9 @@ package
 																	MovieClip(ROOT).obj_props.props_obj_solid.selected, 
 																	"" /*MovieClip(ROOT).obj_props.props_obj_clickThrough.selected*/, 
 																	MovieClip(ROOT).obj_props.props_obj_sizeX.text, 
-																	MovieClip(ROOT).obj_props.props_obj_sizeY.text);
+																	MovieClip(ROOT).obj_props.props_obj_sizeY.text,
+																	MovieClip(ROOT).obj_props.props_obj_sizeZ.text
+																	);
 			}
 		}
 		

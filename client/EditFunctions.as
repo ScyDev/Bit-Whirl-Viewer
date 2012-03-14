@@ -223,11 +223,11 @@ package
 		}
 		
 		
-		public function edit_applyObjectProps(objId, obj_name, obj_x, obj_y, obj_z, obj_rotZ, obj_sell, obj_price, obj_solid, obj_clickThrough, obj_sizeX, obj_sizeY)
+		public function edit_applyObjectProps(objId, obj_name, obj_x, obj_y, obj_z, obj_rotZ, obj_sell, obj_price, obj_solid, obj_clickThrough, obj_sizeX, obj_sizeY, obj_sizeZ)
 		{
 			//MovieClip(ROOT).output("edit_applyObjectProps: "+objId);
 			
-			var vars = "cmd=applyObjectProps&objId="+objId+"&obj_name="+obj_name+"&obj_x="+obj_x+"&obj_y="+obj_y+"&obj_z="+obj_z+"&obj_rotZ="+obj_rotZ+"&obj_sell="+obj_sell+"&obj_price="+obj_price+"&obj_solid="+obj_solid+"&obj_clickThrough="+obj_clickThrough+"&obj_sizeX="+obj_sizeX+"&obj_sizeY="+obj_sizeY+"&targetDatabase="+GuiFuncs.deleteFocusPlace;
+			var vars = "cmd=applyObjectProps&objId="+objId+"&obj_name="+obj_name+"&obj_x="+obj_x+"&obj_y="+obj_y+"&obj_z="+obj_z+"&obj_rotZ="+obj_rotZ+"&obj_sell="+obj_sell+"&obj_price="+obj_price+"&obj_solid="+obj_solid+"&obj_clickThrough="+obj_clickThrough+"&obj_sizeX="+obj_sizeX+"&obj_sizeY="+obj_sizeY+"&obj_sizeZ="+obj_sizeZ+"&targetDatabase="+GuiFuncs.deleteFocusPlace;
 			sendEditorInputNow(vars);
 			
 		}

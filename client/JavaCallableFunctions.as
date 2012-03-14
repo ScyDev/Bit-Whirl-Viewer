@@ -212,7 +212,7 @@ package
 			}
 		}
 		
-		public function update_setObjectProps(clip_name, objName, rotZ, sell, price, solid, clickThrough, owner, sizeX, sizeY)
+		public function update_setObjectProps(clip_name, objName, rotZ, sell, price, solid, clickThrough, owner, sizeX, sizeY, sizeZ)
 		{
 			var concernedClip = MovieClip(ROOT).guiEvents.getObjectFromMap(clip_name);
 			if (concernedClip == null)
@@ -235,6 +235,7 @@ package
 				concernedClip.inflObjOwner = owner;
 				concernedClip.desiredWidth = sizeX;
 				concernedClip.desiredHeight = sizeY;
+				concernedClip.sizeZ = sizeZ;
 				
 				concernedClip.setContextMenu();
 			}

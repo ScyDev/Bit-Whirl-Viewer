@@ -323,7 +323,7 @@ package
 			}
 			else if (cmdName == "update_setObjectProps") 
 			{ 
-				MovieClip(ROOT).javaCallableFunctions.update_setObjectProps(cmdArgs[0], cmdArgs[1], cmdArgs[2], cmdArgs[3], cmdArgs[4], cmdArgs[5], cmdArgs[6], cmdArgs[7], cmdArgs[8], cmdArgs[9]);
+				MovieClip(ROOT).javaCallableFunctions.update_setObjectProps(cmdArgs[0], cmdArgs[1], cmdArgs[2], cmdArgs[3], cmdArgs[4], cmdArgs[5], cmdArgs[6], cmdArgs[7], cmdArgs[8], cmdArgs[9], cmdArgs[10]);
 			}
 			else if (cmdName == "update_playSound") 
 			{ 

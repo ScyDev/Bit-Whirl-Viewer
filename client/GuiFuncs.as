@@ -284,6 +284,7 @@ package
 			MovieClip(concernedObject.root).obj_props.props_obj_owner.text = "";
 			MovieClip(concernedObject.root).obj_props.props_obj_sizeX.text = "";
 			MovieClip(concernedObject.root).obj_props.props_obj_sizeY.text = "";
+			MovieClip(concernedObject.root).obj_props.props_obj_sizeZ.text = "";
 			}
 		}
 		
@@ -304,6 +305,7 @@ package
 			MovieClip(concernedObject.root).obj_props.props_obj_owner.text = concernedObject.inflObjOwner;
 			MovieClip(concernedObject.root).obj_props.props_obj_sizeX.text = concernedObject.desiredWidth;
 			MovieClip(concernedObject.root).obj_props.props_obj_sizeY.text = concernedObject.desiredHeight;
+			MovieClip(concernedObject.root).obj_props.props_obj_sizeZ.text = concernedObject.sizeZ;
 
 			//concernedObject.activateClickthrough(MovieClip(concernedObject.root).obj_props.props_obj_clickThrough.selected);
 		}		
