@@ -49,14 +49,14 @@ package
 			// caching only works for bitmaps, for we can copy the bitmap data.
 			// cloning MovieClips is not naturally supported in AS3
 			// possible solution: http://www.dannyburbol.com/2009/01/movieclip-clone-flash-as3/
-			MovieClip(ROOT).output("loadedGfx[objUrl]: "+objUrl+" -> "+loadedGfx[objUrl], 1);
+			MovieClip(ROOT).output("loadedGfx[objUrl]: "+objUrl+" -> "+loadedGfx[objUrl], 0);
 				
 			if (loadedGfx[objUrl] != null && loadedGfx[objUrl] is Bitmap)
 			{			
 				var existingGfx:Bitmap = loadedGfx[objUrl] as Bitmap;
 				
 				var date = new Date();
-				MovieClip(ROOT).output("YEAH FOUND LOADED: "+objUrl+" - "+existingGfx.bitmapData+"  "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 1);
+				MovieClip(ROOT).output("YEAH FOUND LOADED: "+objUrl+" - "+existingGfx.bitmapData+"  "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 0);
 				
 				var copyGfx = new Bitmap(existingGfx.bitmapData, "auto", true);
 				copyGfx.visible = true;
@@ -107,7 +107,7 @@ package
 			else
 			{
 				var date = new Date();
-				MovieClip(ROOT).output(":( FOUND no cached: "+objUrl+" - "+existingGfx+"  "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 1);
+				MovieClip(ROOT).output(":( FOUND no cached: "+objUrl+" - "+existingGfx+"  "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 0);
 				
 				var currMcl = new Loader();
 				currMcl.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderOnLoadComplete, false, 0, true);

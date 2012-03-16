@@ -176,52 +176,11 @@ package
 					pathwalker.nextStep();
 					
 					var theViewport = MovieClip(this.root).viewport;
-					var mapCanvas = MovieClip(this.root).guiEvents.getMapCanvas();
 					
-					/*
-					// check if Z needs to be swapped on next step. overlapping any object?
-					//var intersectingObjects = MovieClip(this.root).getObjectsUnderPoint(mapCanvas.localToGlobal(new Point(this.x, this.y)));
-					var intersectingObjects = mapCanvas.getObjectsUnderPoint(mapCanvas.localToGlobal(new Point(this.x, this.y)));
-					//intersectingObjects = intersectingObjects.concat(mapCanvas.getObjectsUnderPoint(mapCanvas.localToGlobal(new Point(this.x+this.width, this.y))));
-					//intersectingObjects = intersectingObjects.concat(mapCanvas.getObjectsUnderPoint(mapCanvas.localToGlobal(new Point(this.x+this.width, this.y+this.height))));
-					//intersectingObjects = intersectingObjects.concat(mapCanvas.getObjectsUnderPoint(mapCanvas.localToGlobal(new Point(this.x, this.y+this.height))));
-					
-					MovieClip(this.root).output("for "+intersectingObjects.length, 0);
-					for (var i = 0; i < intersectingObjects.length; i++)
+					if (MovieClip(this.root).guiEvents.edit_mode == 0)
 					{
-						//MovieClip(this.root).output("wehuuuu", 0);
-						var currObj = intersectingObjects[i];
-						//MovieClip(this.root).output("INTERSECTING:"+currObj.name+" "+currObj+" "+currObj.parent+" "+currObj.parent.parent+" "+currObj.parent.parent.parent+" "+currObj.parent.parent.parent.parent, 0); //InfilionMovieClip(currObj).inflObjId
-						
-						//if (currObj is InfilionMovieClip && currObj.inflObjId != this.inflObjId)
-						
-						if (currObj.parent != null && currObj.parent is Loader && currObj.parent.parent != null && currObj.parent.parent is InfilionMovieClip && InfilionMovieClip(currObj.parent.parent).inflObjId != this.inflObjId)
-						{
-							currObj = InfilionMovieClip(currObj.parent.parent);
-							
-							//MovieClip(this.root).output("OK! Z-ing with an InfilionMovieClip", 0);
-							if (this.y+(this.height/2) >= currObj.y+(currObj.height/2))
-							{
-								// is lower (y) so put before
-								var targetClip = currObj.parent.getChildAt(currObj.parent.getChildIndex(currObj)+1);
-								if (targetClip != null)
-								{
-									MovieClip(this.root).update_moveObjectZ(this.inflObjId, InfilionMovieClip(targetClip).inflObjId);
-								}
-								else
-								{
-								}
-							}
-							else
-							{
-								// is higher (y), so put behind
-								MovieClip(this.root).update_moveObjectZ(this.inflObjId, InfilionMovieClip(currObj).inflObjId);
-							}
-						}
+						this.swapZForMovingObject();
 					}
-					*/
-					
-					//MovieClip(root).output("step: "+(this.x-pathwalker.currX) );
 					
 					this.x = pathwalker.currX;
 					this.y = pathwalker.currY;
@@ -292,6 +251,87 @@ package
 				}
 			}
 
+		}
+		
+		public function getZ()
+		{
+			return this.parent.getChildIndex(this);
+		}
+		
+		public function getIntersectingObjects()
+		{
+			var theResult = new Array();
+			var mapCanvas = MovieClip(this.root).guiEvents.getMapCanvas();
+			for (var i = 0; i < mapCanvas.numChildren; i++)
+			{
+				var currChild = mapCanvas.getChildAt(i);
+				if (currChild is InfilionMovieClip && InfilionMovieClip(currChild).sizeZ > 0)
+				{
+					if (this.getRect(mapCanvas).intersects(InfilionMovieClip(currChild).getRect(mapCanvas)))
+					{
+						theResult.push(InfilionMovieClip(currChild));
+					}
+				}
+			}
+			return theResult;
+		}
+		
+		public function swapZForMovingObject()
+		{
+			var mapCanvas = MovieClip(this.root).guiEvents.getMapCanvas();
+			// check if Z needs to be swapped on next step. overlapping any object?
+			var intersectingObjects = this.getIntersectingObjects();
+			
+			//MovieClip(this.root).output("for "+intersectingObjects.length, 1);
+			for (var i = 0; i < intersectingObjects.length; i++)
+			{
+				var currObj = InfilionMovieClip(intersectingObjects[i]);
+				
+				if (currObj.inflObjId != this.inflObjId
+					//&& currObj.sizeZ > 0 // indicates if object should swap Z at all. WARNING: server Z is not = swapping Z
+					)
+				{
+					//MovieClip(this.root).output("OK! Z-ing ("+i+" of "+intersectingObjects.length+")"+this.inflObjName+"("+this.getZ()+") with: "+currObj.inflObjName+"("+currObj.getZ()+")", 1);
+
+					var targetClip = null;
+					var zOrder = MovieClip(this.root).guiEvents.zOrder;
+					var zIndex = MovieClip(this.root).guiEvents.getZOrderIndexOf(currObj.inflObjId);
+					if (zIndex > -1) targetClip = mapCanvas.getChildByName(zOrder[zIndex]);
+					
+					if (this.y+(this.height/2) >= currObj.y+(currObj.height/2))
+					{
+						if (this.getZ() < currObj.getZ())
+						{
+							// is lower (y) so put before
+						
+							//MovieClip(this.root).output("Z: "+this.inflObjName+" before "+targetClip, 1);
+							if (targetClip != null)
+							{
+								//MovieClip(this.root).output("Z: "+this.inflObjName+" before "+targetClip.inflObjName, 1);
+								MovieClip(this.root).javaCallableFunctions.update_moveObjectZ(this.inflObjId, zIndex+1);
+							}
+							else
+							{
+								//MovieClip(this.root).output("Z: "+this.inflObjName+" before ... found no target :(", 1);
+							}
+						}
+					}
+					else 
+					{
+						if (this.getZ() > currObj.getZ())
+							{
+							// is higher (y), so put behind
+							//MovieClip(this.root).output("Z: "+this.inflObjName+" after "+currObj.inflObjName, 1);
+							MovieClip(this.root).javaCallableFunctions.update_moveObjectZ(this.inflObjId, zIndex);
+						}
+					}
+					
+					if (this.getZ() == currObj.getZ())
+					{
+						MovieClip(this.root).output("Z is the same?! IMPOSSIBRü!!!!!!!", 1);
+					}
+				}
+			}
 		}
 		
 		public function setRotationFollowMouse(theVal)

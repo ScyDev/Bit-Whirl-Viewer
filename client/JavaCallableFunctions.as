@@ -49,34 +49,8 @@ package
 		
 			if (concernedClip != null)
 			{
-				MovieClip(ROOT).output("Adding obj moveObjectZ: "+clip_name, 0);
+				MovieClip(ROOT).output("update_moveObjectZ: "+clip_name, 0);
 				addObjectToContainerAndZOrder(concernedClip, clip_name, new_z, concernedClip.parent);
-				
-				//MovieClip(ROOT).output("moveZ called with: "+clip_name+", "+new_z, 0); 
-				/*
-				if (concernedClip != null)
-				{
-					if (new_z != clip_name)
-					{ 
-						//concernedClip.parent.removeChild(concernedClip);
-						//concernedClip.parent.addChild(concernedClip);
-						var targetChild = concernedClip.parent.getChildByName(new_z);
-						if (targetChild != null)
-						{
-							var theParent = concernedClip.parent;
-							var bleh = new MovieClip();
-							bleh.addChild(concernedClip);
-							//theParent.addChild(concernedClip);
-									
-							var targetChildIndex = theParent.getChildIndex(targetChild);
-							MovieClip(ROOT).output("target index: "+targetChildIndex, 0); 
-							theParent.addChildAt(concernedClip, targetChildIndex);
-						}
-			
-						return;
-					}
-					
-				}*/
 			}
 		}
 		
@@ -348,7 +322,7 @@ package
 		{
 			var zOrder = MovieClip(ROOT).guiEvents.zOrder;
 			
-				MovieClip(ROOT).output("TARGET ON CREATE for "+objId+": "+targetZObj, 0);
+				MovieClip(ROOT).output("addObjectToContainerAndZOrder: "+objId+": "+targetZObj, 0);
 				var targetZId = int(targetZObj);
 				if (concernedObj.isHudElement != 1) // no Z ordering for HUD elements ATM
 				{
@@ -358,6 +332,7 @@ package
 					{
 						MovieClip(ROOT).output("splicing "+objId+" out at "+existingZOrderIndex, 0);
 						zOrder.splice(existingZOrderIndex, 1);
+						if (targetZId >= existingZOrderIndex) targetZId--; // if we remove one, targetZ must come down too
 						existingZOrderIndex = MovieClip(ROOT).guiEvents.getZOrderIndexOf(objId);
 					}
 					
@@ -385,7 +360,7 @@ package
 							{
 								if (zOrder[i] != -1)
 								{
-									//MovieClip(ROOT).output("found next higher! to insert below "+zOrder[i], 0);
+									MovieClip(ROOT).output("found next higher! to insert below "+zOrder[i], 0);
 									targetMc = insertionContainer.getChildByName(zOrder[i]);
 									break;
 								}
@@ -398,11 +373,13 @@ package
 					{
 						var targetZ = insertionContainer.getChildIndex(targetMc);
 						insertionContainer.addChildAt(concernedObj, targetZ);
+						MovieClip(ROOT).output("addChildAt: "+targetZ+" "+InfilionMovieClip(targetMc).inflObjName, 0);
 					}
 					else
 					{
 						//MovieClip(ROOT).output("movieclip was null for: "+targetZObj);
 						insertionContainer.addChild(concernedObj);
+						MovieClip(ROOT).output("addChildAt: top", 0);
 					}
 				}
 				else
