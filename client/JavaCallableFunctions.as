@@ -259,7 +259,7 @@ package
 		}
 				
 		
-		public function update_createNewObj(objId, objUrl, posX, posY, targetZObj, sizeX, sizeY, rotZ, isSprite, tileX, tileY, startFrame, endFrame, fps, isHudElement, asAvatar)
+		public function update_createNewObj(objId, objUrl, posX, posY, targetZObj, sizeX, sizeY, rotZ, isSprite, tileX, tileY, startFrame, endFrame, fps, isHudElement, asAvatar, highestColliderPoint)
 		{
 			var insertionContainer:MovieClip = MovieClip(ROOT).guiEvents.getMapCanvas();
 			if (isHudElement == 1)
@@ -304,8 +304,14 @@ package
 				// initial resize
 				newMc.desiredWidth = sizeX;
 				newMc.desiredHeight = sizeY;
+				newMc.highestColliderPoint = highestColliderPoint;
 		
 				MovieClip(ROOT).movieLoader.loadImage(newMc, objUrl, "representation");
+				
+				if (newMc.asAvatar == 1)
+				{
+					InfilionMovieClip(newMc).swapZForMovingObject();
+				}
 				
 				// for some reason, direct calls of resizeMyself doesn't work here. maybe it's too early for onEnterFrame event...
 				//viewport.content[objName].resizeMyself(sizeX, sizeY, posX, posY);
@@ -460,6 +466,19 @@ package
 		{
 			MovieClip(ROOT).borderLayout.hideLoadingScreen();
 			MovieClip(ROOT).guiEvents.openLens(MovieClip(ROOT).viewport.horizontalScrollPosition+(MovieClip(ROOT).guiEvents.fixedViewportWidth/2), MovieClip(ROOT).viewport.verticalScrollPosition+(MovieClip(ROOT).guiEvents.fixedViewportHeight/2));
+			
+			MovieClip(ROOT).output("Now checking for avatars to swap...", 1);
+			var mapCanvas = MovieClip(ROOT).guiEvents.getMapCanvas();
+			for (var i = 0; i < mapCanvas.numChildren; i++)
+			{
+				var currChild = mapCanvas.getChildAt(i);
+				if (currChild is InfilionMovieClip && InfilionMovieClip(currChild).asAvatar == 1)
+				{
+					MovieClip(ROOT).output("Swapping for "+InfilionMovieClip(currChild).inflObjName+" on map loaded", 1);
+					InfilionMovieClip(currChild).swapZForMovingObject();
+				}
+			}
+			
 		}
 		
 		public function update_scrollView(toX, toY, speed)

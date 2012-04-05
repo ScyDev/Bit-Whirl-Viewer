@@ -43,6 +43,27 @@ package
 			MovieClip(ROOT).output("INIT: MovieLoader has run...", 0);
 		}
 
+		public function cloneBitmap()
+		{
+		
+		}
+		
+		public function cloneMovieClip(existingSwf)
+		{
+				var sourceClass:Class = Object(existingSwf).constructor;
+				var copySwf = new sourceClass();	
+
+				copySwf.visible = true;
+				//copySwf.width = existingSwf.width;
+				//copySwf.height = existingSwf.height;
+				
+				copySwf.transform = existingSwf.transform;
+				copySwf.filters = existingSwf.filters;
+				copySwf.cacheAsBitmap = existingSwf.cacheAsBitmap;
+				copySwf.opaqueBackground = existingSwf.opaqueBackground;
+				
+				return copySwf;
+		}
 		
 		public function loadImage(concernedClip, objUrl, subObjName)
 		{
@@ -51,77 +72,51 @@ package
 			// possible solution: http://www.dannyburbol.com/2009/01/movieclip-clone-flash-as3/
 			MovieClip(ROOT).output("loadedGfx[objUrl]: "+objUrl+" -> "+loadedGfx[objUrl], 0);
 				
-			if (loadedGfx[objUrl] != null && loadedGfx[objUrl] is Bitmap)
-			{			
-				var existingGfx:Bitmap = loadedGfx[objUrl] as Bitmap;
-				
-				var date = new Date();
-				MovieClip(ROOT).output("YEAH FOUND LOADED: "+objUrl+" - "+existingGfx.bitmapData+"  "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 0);
-				
-				var copyGfx = new Bitmap(existingGfx.bitmapData, "auto", true);
-				copyGfx.visible = true;
-				//copyGfx.width = existingGfx.width; // necessary?
-				//copyGfx.height = existingGfx.height;
-				
-				copyGfx.name = subObjName;
-				concernedClip.addChild(copyGfx); // should happen in setThatImage(), but dont work down there
-				setThatImage(concernedClip, copyGfx);
-				copyGfx = null;
-				existingGfx = null;
-				
-				// necessary? this lead to image having different scale when copy is put on
-				//concernedClip.resizeMyself(concernedClip.desiredWidth, concernedClip.desiredHeight, concernedClip.x, concernedClip.y);
-				
-				MovieClip(ROOT).output(concernedClip.desiredWidth+"/"+concernedClip.desiredHeight+" - "+concernedClip.width+"/"+concernedClip.height+" - "+concernedClip.x+"/"+concernedClip.y, 0);
-			} /*
-			else if (loadedGfx[objUrl] != null && loadedGfx[objUrl] is MovieClip) // MainTimeline = a loaded swf
+			if (loadedGfx[objUrl] != null)
 			{
-				MovieClip(ROOT).output("olo", 1);
-				var existingSwf = loadedGfx[objUrl];
-				MovieClip(ROOT).output("Dafuq!?", 1);
-				
 				var date = new Date();
-				MovieClip(ROOT).output("YEAH FOUND SWF: "+objUrl+" - "+existingSwf+"  "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 1);
-
-				var sourceClass:Class = Object(existingSwf).constructor;
-				var copySwf = new sourceClass();				
-				copySwf.visible = true;
-				copySwf.width = existingSwf.width;
-				copySwf.height = existingSwf.height;
-				
-    copySwf.transform = existingSwf.transform;
-    copySwf.filters = existingSwf.filters;
-    copySwf.cacheAsBitmap = existingSwf.cacheAsBitmap;
-    copySwf.opaqueBackground = existingSwf.opaqueBackground;
-				
-				copySwf.name = subObjName;
-				concernedClip.addChild(copySwf); // should happen in setThatImage(), but dont work down there
-				//copySwf.prevScene();
-				copySwf.gotoAndPlay(1);
-				setThatImage(concernedClip, copySwf);
-				copySwf = null;
-				existingSwf = null;
-				
-				concernedClip.resizeMyself(concernedClip.desiredWidth, concernedClip.desiredHeight, concernedClip.x, concernedClip.y);
-			}			*/
+				MovieClip(ROOT).output("YEAH FOUND LOADED: "+objUrl+" - "+loadedGfx[objUrl]+"  "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 0);				
+				startMovieClipLoader(loadedGfx[objUrl], concernedClip, subObjName);
+			}
 			else
 			{
 				var date = new Date();
-				MovieClip(ROOT).output(":( FOUND no cached: "+objUrl+" - "+existingGfx+"  "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 0);
+				MovieClip(ROOT).output(":( FOUND no cached: "+objUrl+" - "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 0);
 				
-				var currMcl = new Loader();
-				currMcl.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderOnLoadComplete, false, 0, true);
-				currMcl.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
+				var currDataLoader = new URLLoader();
+				currDataLoader.dataFormat = URLLoaderDataFormat.BINARY;
+				currDataLoader.addEventListener(Event.COMPLETE, function (e:Event) : void {dataLoaderOnLoadComplete(e, objUrl, concernedClip, subObjName);}, false, 0, true);
+				//currDataLoader.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
 				var loaderContext = new LoaderContext();
 				loaderContext.checkPolicyFile = true;
-				currMcl.load(new URLRequest(objUrl), loaderContext);
-				currMcl.name = subObjName;
-				concernedClip.addChild(currMcl);
-				
-				loaderContext = null;
-				currMcl = null;
+				currDataLoader.load(new URLRequest(objUrl));
+
 			}
 	
+		}
+		
+		public function dataLoaderOnLoadComplete(event:Event, objUrl, concernedClip, subObjName) 
+		{
+			var loader:URLLoader = URLLoader(event.target);
+			var loadedData = loader.data;
+			
+			loadedGfx[objUrl] = loadedData;
+			startMovieClipLoader(loadedData, concernedClip, subObjName);
+		}
+		
+		public function startMovieClipLoader(loadedData, concernedClip, subObjName)
+		{
+			var currMcl = new Loader();
+			currMcl.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderOnLoadComplete, false, 0, true);
+			currMcl.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
+			var loaderContext = new LoaderContext();
+			loaderContext.checkPolicyFile = false;
+			currMcl.loadBytes(loadedData, loaderContext);
+			currMcl.name = subObjName;
+			concernedClip.addChild(currMcl);
+			
+			loaderContext = null;
+			currMcl = null;			
 		}
 		
 		public function loaderOnLoadComplete(event:Event) 
@@ -139,9 +134,9 @@ package
 			
 			//MovieClip(ROOT).output("typeof "+(typeof loaded_mc)+" "+loaded_mc+" dimensions: "+loaded_mc.width+"/"+loaded_mc.height, 1);
 			
-			//MovieClip(ROOT).output("putting to cache: "+loaded_mc+": "+loaded_mc.parent.contentLoaderInfo.url+" obj("+InfilionMovieClip(loaded_mc.parent.parent).inflObjId+")", 0);
-			loadedGfx[loaded_mc.parent.contentLoaderInfo.url] = loaded_mc;
-				
+			//MovieClip(ROOT).output("putting to cache: "+loaded_mc+": "+loaded_mc.parent.contentLoaderInfo.url+" obj("+InfilionMovieClip(loaded_mc.parent.parent).inflObjId+")", 1);
+			//loadedGfx[loaded_mc.parent.contentLoaderInfo.url] = loaded_mc;
+
 			if (loaded_mc.parent != null && loaded_mc.parent.parent != null)
 			{
 				var concernedClip:InfilionMovieClip = InfilionMovieClip(loaded_mc.parent.parent);

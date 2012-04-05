@@ -67,6 +67,7 @@ package
 		public var desiredWidth:int = 0;
 		public var desiredHeight:int = 0;
 		public var sizeZ = 0;
+		public var highestColliderPoint:int = 0;
 		
 		public var rotZ = 0;
 		public var activeRot = 0;
@@ -125,7 +126,7 @@ package
 		
 		public function moveMyself (path, new_speed, projected_duration_millis)
 		{
-			//output("moveMyself called!");
+			//MovieClip(this.root).output("moveMyself", 1);
 			this.activeTarget = 1;
 			this.projectedDurationMillis = projected_duration_millis;
 			this.speed = new_speed;
@@ -299,6 +300,10 @@ package
 					if (zIndex > -1) targetClip = mapCanvas.getChildByName(zOrder[zIndex]);
 					
 					if (this.y+(this.height/2) >= currObj.y+(currObj.height/2))
+					/*MovieClip(this.root).output("currObj.highestColliderPoint: "+currObj.highestColliderPoint+" this.y+this.height:"+(this.y+(this.height/1)), 1);
+					if ((currObj.highestColliderPoint > 0 && this.y+(this.height/1) >= currObj.highestColliderPoint)
+						|| (this.y+(this.height/1) >= currObj.y+(currObj.height/2))
+						)*/
 					{
 						if (this.getZ() < currObj.getZ())
 						{
