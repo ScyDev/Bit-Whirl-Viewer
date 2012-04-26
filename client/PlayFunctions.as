@@ -147,6 +147,8 @@ package
 		{
 			if (MovieClip(ROOT).ajax.myXMLSocket.connected == true)
 			{
+				//MovieClip(ROOT).output("sendPlayInputNow: "+vars+"&cmdCounter="+playCommandCounter, 1);
+				
 				playCommandCounter++;
 				
 				var date = new Date();
@@ -163,6 +165,7 @@ package
 				//MovieClip(ROOT).output("encrypted: "+cmd, 0);
 				MovieClip(ROOT).ajax.myXMLSocket.writeUTFBytes(cmd);
 				MovieClip(ROOT).ajax.myXMLSocket.flush();
+				//MovieClip(ROOT).output("sendPlayInputNow: Yes sent!", 1);
 				//MovieClip(ROOT).ajax.myXMLSocket.send("ZGBTRETrvftzGZVRttvvVUztfbbzgfbzfbZGBZgtfvZFCzftVBzTfv"+"\0");
 			}
 			else
@@ -174,6 +177,9 @@ package
 		
 		public function sendPlayInputHttp(vars)
 		{
+			//MovieClip(ROOT).output("sendPlayInputHttp: "+vars+"&cmdCounter="+playCommandCounter, 1);
+			
+			
 			playCommandCounter++;
 			if (MovieClip(ROOT).host != null)
 			{

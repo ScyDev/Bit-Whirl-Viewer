@@ -107,19 +107,19 @@ package
 		public function startMovieClipLoader(loadedData, concernedClip, subObjName)
 		{
 			var currMcl = new Loader();
-			currMcl.contentLoaderInfo.addEventListener(Event.COMPLETE, loaderOnLoadComplete, false, 0, true);
+			currMcl.contentLoaderInfo.addEventListener(Event.COMPLETE, function (e:Event) : void {loaderOnLoadComplete(e, currMcl, concernedClip, subObjName);}, false, 0, true);
 			currMcl.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler, false, 0, true);
 			var loaderContext = new LoaderContext();
 			loaderContext.checkPolicyFile = false;
 			currMcl.loadBytes(loadedData, loaderContext);
 			currMcl.name = subObjName;
-			concernedClip.addChild(currMcl);
+			//concernedClip.addChild(currMcl);
 			
 			loaderContext = null;
-			currMcl = null;			
+			//currMcl = null;			
 		}
 		
-		public function loaderOnLoadComplete(event:Event) 
+		public function loaderOnLoadComplete(event:Event, currMcl, concernedClip, subObjName) 
 		{
 			var date = new Date();
 			MovieClip(ROOT).output("IMG LOADED! "+date.getMinutes()+":"+date.getSeconds()+"."+date.getMilliseconds(), 0);
@@ -128,9 +128,24 @@ package
 			{
 				MovieClip(ROOT).output("ERROR: no valid policy file for image lodaing found ("+event.target.childAllowsParent+")", 0);
 			}
+	
+			// keep old rep, so no flicker during swap
+			while (concernedClip.getChildByName("representation") != null)
+			{
+				//MovieClip(ROOT).output("renaming current sprite rep", 0);
+				concernedClip.getChildByName("representation").name = "representation_old";
+			} 
 			
+			// swap rep
+			concernedClip.addChild(currMcl);
 			var loaded_mc = event.target.content;
 			loaded_mc.smoothing = true;
+			
+			// delete old rep
+			while (concernedClip.getChildByName("representation_old") != null)
+			{
+				concernedClip.removeChild(concernedClip.getChildByName("representation_old"));
+			}
 			
 			//MovieClip(ROOT).output("typeof "+(typeof loaded_mc)+" "+loaded_mc+" dimensions: "+loaded_mc.width+"/"+loaded_mc.height, 1);
 			
@@ -139,7 +154,7 @@ package
 
 			if (loaded_mc.parent != null && loaded_mc.parent.parent != null)
 			{
-				var concernedClip:InfilionMovieClip = InfilionMovieClip(loaded_mc.parent.parent);
+				//var concernedClip:InfilionMovieClip = InfilionMovieClip(loaded_mc.parent.parent);
 				//var mcl = loaded_mc.parent;
 				
 				//MovieClip(ROOT).output(concernedClip.inflObjName+" / "+loaded_mc.parent.contentLoaderInfo.url+" -> orig dimensions: "+loaded_mc.width+"/"+loaded_mc.height, 1);

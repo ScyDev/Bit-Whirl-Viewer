@@ -172,11 +172,7 @@ package
 				concernedClip.startFrame = startFrame;
 				concernedClip.endFrame = endFrame;
 				concernedClip.fps = fps;
-				
-				while (concernedClip.getChildByName("representation") != null)
-				{
-					concernedClip.removeChild(concernedClip.getChildByName("representation"));
-				}
+
 				concernedClip.representationUrl = objUrl;
 				
 				var date = new Date();
